@@ -134,8 +134,8 @@ cp wrangler.toml.example wrangler.toml
 **创建 KV 命名空间**:
 
 ```bash
-pnpm wrangler kv:namespace create "API_KEYS"
-pnpm wrangler kv:namespace create "ACCOUNTS"
+pnpm wrangler kv namespace create "API_KEYS"
+pnpm wrangler kv namespace create "ACCOUNTS"
 ```
 
 将返回的 namespace ID 填入 `wrangler.toml`:
