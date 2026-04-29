@@ -10,8 +10,9 @@ export const userDashboardHtml = `<!DOCTYPE html>
     <title>用户后台 · Ollama / OpenRouter API Pool</title>
     <meta name="description" content="查看个人访问凭证、注册信息与登录历史，管理 Ollama / OpenRouter API Pool 用户能力。">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <script src="https://proxy.jhun.edu.kg/proxy/cdn.tailwindcss.com/"></script>
+    <script src="/vendor/tailwind.js"></script>
     <script>
+        window.tailwind = window.tailwind || {};
         tailwind.config = {
             theme: {
                 extend: {
@@ -24,8 +25,7 @@ export const userDashboardHtml = `<!DOCTYPE html>
         };
     </script>
     <style>
-        @import url('https://proxy.jhun.edu.kg/proxy/fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen flex flex-col text-slate-800">

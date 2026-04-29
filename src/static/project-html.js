@@ -21,8 +21,9 @@ export const projectHtml = `<!DOCTYPE html>
     <meta name="twitter:title" content="项目介绍 · Ollama / OpenRouter API Pool">
     <meta name="twitter:description" content="集中查看项目亮点、最新版本与 README 内容，支持中英文切换与 mermaid 图表。">
     <meta name="twitter:image" content="https://ollama-api-pool.h7ml.workers.dev/logo.svg">
-    <script src="https://proxy.jhun.edu.kg/proxy/cdn.tailwindcss.com/"></script>
+    <script src="/vendor/tailwind.js"></script>
     <script>
+        window.tailwind = window.tailwind || {};
         tailwind.config = {
             theme: {
                 extend: {
@@ -38,7 +39,6 @@ export const projectHtml = `<!DOCTYPE html>
         };
     </script>
     <style>
-        @import url('https://proxy.jhun.edu.kg/proxy/fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
         .markdown-body {
             background: #ffffff;
@@ -473,9 +473,9 @@ export const projectHtml = `<!DOCTYPE html>
     </footer>
 
     <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
-    <script>LA.init({id:"Ky3jFxCaiJ9zgtRy",ck:"Ky3jFxCaiJ9zgtRy",autoTrack:true,hashMode:true,screenRecord:true});</script>
-    <script src="https://proxy.jhun.edu.kg/proxy/cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://proxy.jhun.edu.kg/proxy/cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>if (window.LA && typeof window.LA.init === 'function') { LA.init({id:"Ky3jFxCaiJ9zgtRy",ck:"Ky3jFxCaiJ9zgtRy",autoTrack:true,hashMode:true,screenRecord:true}); }</script>
+    <script src="/vendor/marked.js"></script>
+    <script src="/vendor/mermaid.js"></script>
     <script src="/js/project.js?v=1"></script>
 </body>
 </html>`;

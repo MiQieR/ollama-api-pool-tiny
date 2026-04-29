@@ -25,9 +25,10 @@ export const loginHtml = `<!DOCTYPE html>
     <meta name="twitter:description" content="集中管理多 Provider API 账号，支持 PostgreSQL 与 Redis，提供实时统计与鉴权。">
     <meta name="twitter:image" content="https://ollama-api-pool.h7ml.workers.dev/logo.svg">
     <meta name="robots" content="index,follow">
-    <script src="https://proxy.jhun.edu.kg/proxy/cdn.tailwindcss.com/"></script>
-    <script src="https://proxy.jhun.edu.kg/proxy/code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="/vendor/tailwind.js"></script>
+    <script src="/vendor/jquery.js"></script>
     <script>
+        window.tailwind = window.tailwind || {};
         tailwind.config = {
             theme: {
                 extend: {
@@ -49,8 +50,7 @@ export const loginHtml = `<!DOCTYPE html>
     </script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad" async defer></script>
     <style>
-        @import url('https://proxy.jhun.edu.kg/proxy/fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
         .auth-tab-active { background: #fff; color: #0f172a; box-shadow: 0 12px 24px -16px rgba(15, 23, 42, 0.45); }
         .user-tab-active { background: #0f172a; color: #fff; box-shadow: 0 12px 24px -16px rgba(15, 23, 42, 0.55); }
     </style>
@@ -434,7 +434,7 @@ export const loginHtml = `<!DOCTYPE html>
     </footer>
 
     <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
-    <script>LA.init({id:"Ky3jFxCaiJ9zgtRy",ck:"Ky3jFxCaiJ9zgtRy",autoTrack:true,hashMode:true,screenRecord:true});</script>
-    <script src="/js/login.js?v=7"></script>
+    <script>if (window.LA && typeof window.LA.init === 'function') { LA.init({id:"Ky3jFxCaiJ9zgtRy",ck:"Ky3jFxCaiJ9zgtRy",autoTrack:true,hashMode:true,screenRecord:true}); }</script>
+    <script src="/js/login.js?v=8"></script>
 </body>
 </html>`;

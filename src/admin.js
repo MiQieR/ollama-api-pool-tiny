@@ -75,7 +75,10 @@ export async function handleAdmin(request, env) {
   }
 
   // 路由分发
-  if (path === '/admin/users' && request.method === 'GET') {
+  if (path === '/admin/verify' && request.method === 'GET') {
+    return jsonResponse({ success: true });
+
+  } else if (path === '/admin/users' && request.method === 'GET') {
     if (!isPostgresEnabled(env)) {
       return errorResponse('PostgreSQL 支持未启用，无法使用用户管理功能', 400);
     }

@@ -25,12 +25,13 @@ export const statsHtml = `<!DOCTYPE html>
   <meta name="twitter:title" content="实时统计 · Ollama / OpenRouter API Pool">
   <meta name="twitter:description" content="查看多 Provider 代理池的实时监控指标，快速感知异常。">
   <meta name="twitter:image" content="https://ollama-api-pool.h7ml.workers.dev/logo.svg">
-  <script src="https://proxy.jhun.edu.kg/proxy/cdn.tailwindcss.com/"></script>
-  <script src="https://proxy.jhun.edu.kg/proxy/cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://proxy.jhun.edu.kg/proxy/cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-  <script src="https://proxy.jhun.edu.kg/proxy/cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script src="/vendor/tailwind.js"></script>
+  <script src="/vendor/jquery.js"></script>
+  <script src="/vendor/chart.js"></script>
+  <script src="/vendor/echarts.js"></script>
   <script>
-    tailwind.config = {
+    window.tailwind = window.tailwind || {};
+        tailwind.config = {
       theme: {
         extend: {
           colors: {
@@ -45,7 +46,6 @@ export const statsHtml = `<!DOCTYPE html>
     }
   </script>
   <style>
-    @import url('https://proxy.jhun.edu.kg/proxy/fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
     body {
       font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
@@ -746,6 +746,6 @@ export const statsHtml = `<!DOCTYPE html>
     });
   </script>
   <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
-  <script>LA.init({id:"Ky3jFxCaiJ9zgtRy",ck:"Ky3jFxCaiJ9zgtRy",autoTrack:true,hashMode:true,screenRecord:true});</script>
+  <script>if (window.LA && typeof window.LA.init === 'function') { LA.init({id:"Ky3jFxCaiJ9zgtRy",ck:"Ky3jFxCaiJ9zgtRy",autoTrack:true,hashMode:true,screenRecord:true}); }</script>
 </body>
 </html>`;

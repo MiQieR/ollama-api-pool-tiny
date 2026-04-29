@@ -12,6 +12,10 @@ function resolveConfig(env) {
   const redisUrl = env?.REDIS_URL;
   if (!redisUrl) return null;
 
+  if (redisUrl.includes('<') || redisUrl.includes('>') || redisUrl.includes('your-') || redisUrl.includes('your_')) {
+    return null;
+  }
+
   if (configCache.has(redisUrl)) {
     return configCache.get(redisUrl);
   }

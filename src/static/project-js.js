@@ -1,6 +1,6 @@
 export const projectJs = `const README_SOURCES = {
-    zh: 'https://proxy.jhun.edu.kg/https/raw.githubusercontent.com/dext7r/ollama-api-pool/main/README.md',
-    en: 'https://proxy.jhun.edu.kg/https/raw.githubusercontent.com/dext7r/ollama-api-pool/main/README_EN.md'
+    zh: '/project/docs?file=README.md',
+    en: '/project/docs?file=README_EN.md'
 };
 
 const REPO_META_URL = '/project/meta';

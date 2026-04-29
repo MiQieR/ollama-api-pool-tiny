@@ -23,14 +23,33 @@ function parseProjectRef(databaseUrl) {
   }
 }
 
+function isConfiguredValue(value) {
+  if (!value) return false;
+  const text = String(value).trim();
+  if (!text) return false;
+  if (text.includes('<') || text.includes('>')) return false;
+  if (text.includes('your-') || text.includes('your_')) return false;
+  return true;
+}
+
+function isValidRestUrl(value) {
+  if (!isConfiguredValue(value)) return false;
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' && Boolean(url.hostname);
+  } catch (error) {
+    return false;
+  }
+}
+
 function getRestBase(env) {
   if (!env) return null;
-  if (env.SUPABASE_REST_URL) {
+  if (isValidRestUrl(env.SUPABASE_REST_URL)) {
     return env.SUPABASE_REST_URL.replace(/\/$/, '');
   }
-  if (env.DATABASE_URL) {
+  if (isConfiguredValue(env.DATABASE_URL)) {
     const projectRef = parseProjectRef(env.DATABASE_URL);
-    if (projectRef) {
+    if (isConfiguredValue(projectRef)) {
       return `https://${projectRef}.supabase.co/rest/v1`;
     }
   }
@@ -38,7 +57,12 @@ function getRestBase(env) {
 }
 
 export function isPostgresEnabled(env) {
-  return Boolean(env && env.DATABASE_URL && env.SUPABASE_SERVICE_ROLE_KEY && getRestBase(env));
+  return Boolean(
+    env
+    && isConfiguredValue(env.DATABASE_URL)
+    && isConfiguredValue(env.SUPABASE_SERVICE_ROLE_KEY)
+    && getRestBase(env)
+  );
 }
 
 function getActiveCache(provider) {

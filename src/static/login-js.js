@@ -362,7 +362,7 @@ loginForm.on('submit', async function (e) {
     const btn = loginForm.find('button[type="submit"]');
     btn.prop('disabled', true).addClass('opacity-70').text('登录中...');
     try {
-        const res = await fetch('/admin/stats', { headers: { Authorization: 'Bearer ' + token } });
+        const res = await fetch('/admin/verify', { headers: { Authorization: 'Bearer ' + token } });
         if (!res.ok) {
             showToast(res.status === 401 || res.status === 403 ? 'Token 无效' : '登录失败', 'error');
             return;

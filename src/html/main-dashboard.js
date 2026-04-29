@@ -8,8 +8,8 @@ export const dashboardHtml = `<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{PROVIDER_LABEL}} API Pool 管理中心</title>
-    <script src="https://proxy.jhun.edu.kg/proxy/cdn.tailwindcss.com/"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="/vendor/tailwind.js"></script>
+    <script src="/vendor/jquery.js"></script>
     <meta name="description" content="统一管理 Ollama 与 OpenRouter Provider 的 API 代理池：账号轮询、客户端 Token、实时统计与多层存储。">
     <meta name="keywords" content="Ollama, OpenRouter, API Pool, Provider 管理, Cloudflare Workers, PostgreSQL, Redis, 统一鉴权, 多账号轮询">
     <link rel="canonical" href="https://ollama-api-pool.h7ml.workers.dev/dashboard">
@@ -27,6 +27,7 @@ export const dashboardHtml = `<!DOCTYPE html>
     <meta name="twitter:description" content="集中管理多 Provider 账号与统计，保障 API 高可用。">
     <meta name="twitter:image" content="https://ollama-api-pool.h7ml.workers.dev/logo.svg">
     <script>
+        window.tailwind = window.tailwind || {};
         tailwind.config = {
             theme: {
                 extend: {
@@ -39,8 +40,7 @@ export const dashboardHtml = `<!DOCTYPE html>
         }
     </script>
     <style>
-        @import url('https://proxy.jhun.edu.kg/proxy/fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
         .card-shadow { box-shadow: 0 20px 40px -24px rgba(15, 23, 42, 0.35); }
         .soft-border { border: 1px solid rgba(148, 163, 184, 0.2); }
     </style>
@@ -658,7 +658,7 @@ export const dashboardHtml = `<!DOCTYPE html>
     </footer>
 
     <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
-    <script>LA.init({id:"Ky3jFxCaiJ9zgtRy",ck:"Ky3jFxCaiJ9zgtRy",autoTrack:true,hashMode:true,screenRecord:true});</script>
+    <script>if (window.LA && typeof window.LA.init === 'function') { LA.init({id:"Ky3jFxCaiJ9zgtRy",ck:"Ky3jFxCaiJ9zgtRy",autoTrack:true,hashMode:true,screenRecord:true}); }</script>
     <script src="/js/dashboard.js?v=13"></script>
 </body>
 </html>`;

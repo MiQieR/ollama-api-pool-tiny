@@ -21,9 +21,10 @@ export const apiDocsHtml = `<!DOCTYPE html>
     <meta name="twitter:title" content="API 文档 · Ollama / OpenRouter API Pool">
     <meta name="twitter:description" content="多 Provider API 示例、调试与最佳实践，一站式查看。">
     <meta name="twitter:image" content="https://ollama-api-pool.h7ml.workers.dev/logo.svg">
-    <script src="https://proxy.jhun.edu.kg/proxy/cdn.tailwindcss.com/"></script>
-    <script src="https://proxy.jhun.edu.kg/proxy/code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="/vendor/tailwind.js"></script>
+    <script src="/vendor/jquery.js"></script>
     <script>
+        window.tailwind = window.tailwind || {};
         tailwind.config = {
             theme: {
                 extend: {
@@ -39,8 +40,7 @@ export const apiDocsHtml = `<!DOCTYPE html>
         }
     </script>
     <style>
-        @import url('https://proxy.jhun.edu.kg/proxy/fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
         .code-block {
             position: relative;
             background: #0f172a;
@@ -1085,6 +1085,6 @@ console.log(data);</pre></div>
     });
 </script>
 <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
-<script>LA.init({id:"Ky3jFxCaiJ9zgtRy",ck:"Ky3jFxCaiJ9zgtRy",autoTrack:true,hashMode:true,screenRecord:true});</script>
+<script>if (window.LA && typeof window.LA.init === 'function') { LA.init({id:"Ky3jFxCaiJ9zgtRy",ck:"Ky3jFxCaiJ9zgtRy",autoTrack:true,hashMode:true,screenRecord:true}); }</script>
 </body>
 </html>`;

@@ -31,6 +31,33 @@ const GITHUB_REPO = 'dext7r/ollama-api-pool';
 const PROJECT_META_CACHE_TTL = 5 * 60 * 1000;
 let projectMetaCache = { data: null, fetched: 0 };
 
+const VENDOR_ASSETS = {
+  '/vendor/tailwind.js': {
+    url: 'https://cdn.tailwindcss.com/',
+    contentType: 'application/javascript; charset=utf-8'
+  },
+  '/vendor/jquery.js': {
+    url: 'https://code.jquery.com/jquery-3.7.1.min.js',
+    contentType: 'application/javascript; charset=utf-8'
+  },
+  '/vendor/chart.js': {
+    url: 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js',
+    contentType: 'application/javascript; charset=utf-8'
+  },
+  '/vendor/echarts.js': {
+    url: 'https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js',
+    contentType: 'application/javascript; charset=utf-8'
+  },
+  '/vendor/marked.js': {
+    url: 'https://cdn.jsdelivr.net/npm/marked/marked.min.js',
+    contentType: 'application/javascript; charset=utf-8'
+  },
+  '/vendor/mermaid.js': {
+    url: 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js',
+    contentType: 'application/javascript; charset=utf-8'
+  }
+};
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -88,6 +115,8 @@ export default {
       } else if (path === '/project/docs') {
         // 获取项目文档（支持查询参数 ?file=xxx.md）
         return handleProjectDocs(url);
+      } else if (path.startsWith('/vendor/')) {
+        return handleVendorAsset(request, ctx);
       } else if (path === '/api/test-templates') {
         return jsonResponse({ templates: getTestTemplatesPayload() });
       } else if (path.startsWith('/js/')) {
@@ -189,6 +218,64 @@ export default {
     }
   }
 };
+
+async function handleVendorAsset(request, ctx) {
+  if (request.method !== 'GET' && request.method !== 'HEAD') {
+    return errorResponse('Method Not Allowed', 405);
+  }
+
+  const url = new URL(request.url);
+  const asset = VENDOR_ASSETS[url.pathname];
+  if (!asset) {
+    return errorResponse('Vendor asset not found', 404);
+  }
+
+  const isHeadRequest = request.method === 'HEAD';
+  const cache = caches.default;
+  const cacheKey = new Request(url.toString(), { method: 'GET' });
+  const cached = await cache.match(cacheKey);
+  if (cached) {
+    if (isHeadRequest) {
+      return new Response(null, {
+        status: cached.status,
+        headers: cached.headers
+      });
+    }
+    return cached;
+  }
+
+  const upstream = await fetch(asset.url, {
+    headers: {
+      'User-Agent': getRandomUserAgent(),
+      'Accept': '*/*'
+    },
+    cf: {
+      cacheEverything: true,
+      cacheTtl: 86400
+    }
+  });
+
+  if (!upstream.ok) {
+    return errorResponse(`Failed to load vendor asset: ${upstream.status}`, 502);
+  }
+
+  const headers = new Headers(upstream.headers);
+  headers.set('Content-Type', asset.contentType);
+  headers.set('Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800');
+  headers.set('Access-Control-Allow-Origin', '*');
+  headers.delete('Set-Cookie');
+
+  const response = new Response(isHeadRequest ? null : upstream.body, {
+    status: upstream.status,
+    headers
+  });
+
+  if (!isHeadRequest) {
+    ctx.waitUntil(cache.put(cacheKey, response.clone()));
+  }
+
+  return response;
+}
 
 async function handleProjectMeta() {
   const now = Date.now();
